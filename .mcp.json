@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "mcp-turso-cloud": {
+      "command": "npx",
+      "args": ["-y", "mcp-turso-cloud"],
+      "env": {
+        "TURSO_API_TOKEN": "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJnenB4YVh0YkVmR0VaYzczR2NhaFl3Iiwib3JnX2lkIjoxMDAwMTk3NTc2fQ.rEdFdab5XtL8z-ovHFWXHUbp3H8Twe3nliHdAKs3jLDJ_Fufgrpnesk1afg3GfG_BTUX3vuPdzdhwUQx88cgBg",
+        "TURSO_ORGANIZATION": "a-ru2147",
+        "TURSO_DEFAULT_DATABASE": "optional-default-database"
+      }
+    }
+  }
+}
