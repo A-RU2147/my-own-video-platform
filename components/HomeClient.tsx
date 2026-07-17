@@ -23,56 +23,60 @@ export function HomeClient({ userEmail }: Props) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-800">オンライン講座プラットフォーム</h1>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/my"
-              className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
-            >
-              マイページ
+    <div className="min-h-screen bg-[#F8F7F4]">
+      <header className="bg-[#0F172A]">
+        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <Link href="/" className="text-white font-black text-lg tracking-tight">
+            Atelier<span className="text-indigo-400">学習</span>
+          </Link>
+          <nav className="flex items-center gap-6">
+            <Link href="/my" className="text-sm text-slate-300 hover:text-white transition-colors">
+              マイコース
             </Link>
             {isAdmin && (
-              <Link
-                href="/admin"
-                className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
-              >
-                管理者ページ
+              <Link href="/admin" className="text-sm text-slate-300 hover:text-white transition-colors">
+                管理
               </Link>
             )}
             <button
               onClick={handleLogout}
-              className="text-sm px-3 py-1.5 border rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+              className="text-sm text-slate-300 hover:text-white transition-colors"
             >
               ログアウト
             </button>
-          </div>
+          </nav>
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">コース一覧</h2>
+      <div className="bg-[#0F172A] border-t border-slate-700">
+        <div className="max-w-6xl mx-auto px-6 py-14">
+          <p className="text-indigo-400 text-xs font-semibold tracking-widest uppercase mb-3">コース一覧</p>
+          <h1 className="text-4xl font-black text-white tracking-tight leading-none">
+            あなたのスキルを<br className="sm:hidden" />次のレベルへ。
+          </h1>
           {isAdmin && (
             <Link
               href="/admin"
-              className="px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition-colors"
+              className="inline-flex items-center gap-2 mt-6 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-colors"
             >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
               コースを追加
             </Link>
           )}
         </div>
+      </div>
 
+      <main className="max-w-6xl mx-auto px-6 py-10">
         {isLoading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="bg-white rounded-xl shadow animate-pulse">
-                <div className="aspect-video bg-gray-200" />
-                <div className="p-4 space-y-2">
-                  <div className="h-4 bg-gray-200 rounded w-3/4" />
-                  <div className="h-3 bg-gray-200 rounded w-1/2" />
+              <div key={i} className="bg-white border border-[#E5E4E0] animate-pulse">
+                <div className="aspect-video bg-slate-100" />
+                <div className="p-5 space-y-3">
+                  <div className="h-4 bg-slate-100 rounded w-3/4" />
+                  <div className="h-3 bg-slate-100 rounded w-1/2" />
                 </div>
               </div>
             ))}
@@ -80,11 +84,18 @@ export function HomeClient({ userEmail }: Props) {
         )}
 
         {!isLoading && courses?.length === 0 && (
-          <p className="text-gray-500 text-center py-12">コースがまだありません</p>
+          <div className="py-24 text-center">
+            <p className="text-slate-400 text-sm">まだコースがありません</p>
+            {isAdmin && (
+              <Link href="/admin" className="mt-4 inline-block text-indigo-600 text-sm font-medium hover:underline">
+                最初のコースを作成する →
+              </Link>
+            )}
+          </div>
         )}
 
         {!isLoading && courses && courses.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {courses.map((course) => (
               <CourseCard key={course.id} course={course} />
             ))}
