@@ -12,11 +12,12 @@ export function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Optimistic check: verify session cookie exists without hitting the DB
-  // (Next.js 16 docs recommend avoiding DB calls in proxy)
-  // Full session validation happens in each page/route handler
+  // In production (https), Better Auth prefixes cookies with __Secure-
+  // In development (http), no prefix is added
   const sessionCookie =
-    request.cookies.get("better-auth.session_token") ||
+    request.cookies.get("__Secure-better-auth.session_token") || // production (https)
+    request.cookies.get("better-auth.session_token") ||           // development (http)
+    request.cookies.get("__Secure-better-auth-session_token") ||
     request.cookies.get("better-auth-session_token");
 
   if (!sessionCookie?.value) {
